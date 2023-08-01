@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="position-absolute start-50 top-50 translate-middle" style="width: 80%; max-width: 500px;">
+<div class="card">
+<h1 class="card-header"> Package Info </h1>
+<div class = 'class-body position-relative m-3'>
+    <p class="'class-text"><strong> Package name: </strong>{{node_info.name}}<br/>
+    <strong> Version: </strong>{{node_info.version}}<br/>
+    <strong> Node Id </strong>{{node_info.node_id}}
+    </p>
+</div>
+</div>
+    <br/>
+    <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+    <a href="{% url 'update_package' node_info.package_id  %}" class="btn btn-warning">Update</a>
+    <a href="{% url 'delete_package' node_info.package_id %}" class="btn btn-danger">Delete</a>
+</div>
+{% endblock %}

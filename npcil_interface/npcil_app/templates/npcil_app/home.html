@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<style>
+    .clickable-row{
+        cursor: pointer;
+    }
+</style>
+<h1>Records</h1>
+<table class="table table-hover">
+  <thead>
+  <th scope="col"> Package Id </th>
+  <th scope="col"> Package Name </th>
+  <th scope="col"> Version </th>
+  <th scope="col"> Node Id </th>
+
+  </thead>
+{% if packages %}
+  {% for package in packages %}
+
+    <tr class="clickable-row" onclick="window.location='{% url 'package' package.package_id %}'">
+      <td>{{ package.package_id }}</td>
+      <td>{{ package.name }}</td>
+      <td>{{ package.version }}</td>
+      <td>{{ package.node_id }}</td>
+    </tr>
+
+  {%endfor%}
+{% endif %}
+</table>
+<div class="d-flex justify-content-end">
+  <a class="btn btn-secondary btn-lg position-relative m-2" href="{% url 'add_package' %}">+ Add Package </a>
+  <a class="btn btn-secondary btn-lg position-relative m-2" href="{%url 'show_package'%}"> Generate PDF </a>
+</div>
+{% else %}
+<br/>
+<br/>
+
+<div class="card shadow-lg position-absolute top-50 start-50 translate-middle w-50">
+<h1 class="fs-4 card-title fw-bold mb-4 position-relative m-5">Login</h1>
+<br/>
+<form method = 'POST' action = '{% url "home" %}'>
+    {% csrf_token %}
+  <form>
+  <div class="row mb-3 postition-relative m-5">
+      <label for="inputEmail" class="col-sm-3 col-form-label"><strong>Email</strong></label>
+        <div class = 'col-sm-7'>
+        <input id="email" type="email" class="form-control" name="Email" placeholder="Email" required autofocus>
+
+        <div class="invalid-feedback">
+        Email is invalid
+        </div>
+        </div>
+  </div>
+  <div class="row mb-3 position-relative m-5">
+    <label for="inputPassword" class="col-sm-3 col-form-label"><strong>Password</strong></label>
+
+    <div class="col-sm-7">
+      <input type="password" class="form-control" name="Password" placeholder="Password" required>
+    </div>
+    <br/>
+  </div>
+  <div>
+    <a href="forgot.html" class="float-end text-end translate-middle">
+	  Forgot Password?
+	</a>
+  </div>
+
+  <button type="submit" class="btn btn-primary position-relative m-5">Sign in</button>
+    <div class="card-footer py-3 border-0">
+	 <div class="text-center">
+	 Don't have an account? <a href="{% url 'register' %}" class="text-dark">Create One</a>
+     </div>
+	</div>
+</form>
+</form>
+</div>
+{% endif %}
+{% endblock %}

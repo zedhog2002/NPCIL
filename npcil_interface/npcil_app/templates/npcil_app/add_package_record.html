@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class = 'card shadow-lg position-absolute top-50 start-50 translate-middle w-50' style="width: 80%; max-width: 500px; height: 80%; ">
+<h1 class="position-relative m-3"> <strong>Add Record</strong> </h1>
+
+<form method = 'POST' action = '{% url "add_package" %}' class="position-relative m-5">
+    {% csrf_token %}
+    {{ form.as_p}}
+        <div class="gap-2">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+</form>
+</div>
+{% endblock %}
